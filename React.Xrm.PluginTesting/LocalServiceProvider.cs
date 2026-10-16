@@ -5,6 +5,11 @@ using Microsoft.Xrm.Tooling.Connector;
 
 namespace React.Xrm.PluginTesting
 {
+    /// <summary>
+    /// Implements a Constructor that receives the IOrganizationService containing the connection to CRM via Connection String, and a local instance of the ExectionContext.
+    /// Provides the IExecutionContext and local implementations of ITracingService and IOrganizationServiceFactory to execute the Plugin.
+    /// Initializing a new instance of this class allows to call the "Execute" method of a basic D365 Plugin, using the object as the required parameter "serviceProvider".
+    /// </summary>
     public class LocalServiceProvider : IServiceProvider
     {
         private readonly Dictionary<Type, object> _services = new Dictionary<Type, object>();
@@ -21,38 +26,23 @@ namespace React.Xrm.PluginTesting
             => _services.TryGetValue(serviceType, out var s) ? s : null;
     }
 
+    /// <summary>
+    /// Creates a Local-based Tracing Service to be passed in the serviceProvider parameter of the Execute method: transposes the ITracingService behaviour in a local Console visualization of Plugin Trace Logs.
+    /// </summary>
     public class ConsoleTracingService : ITracingService
     {
         public void Trace(string format, params object[] args)
             => System.Console.WriteLine(args != null && args.Length > 0 ? string.Format(format, args) : format);
     }
 
+    /// <summary>
+    /// Creates a Local-based Service Factory to be passed in the serviceProvider parameter of the Execute method: provides the IOrganizationServiceFactory component.
+    /// </summary>
     public class LocalServiceFactory : IOrganizationServiceFactory
     {
         private readonly IOrganizationService _service;
         public LocalServiceFactory(IOrganizationService service) { _service = service; }
 
         public IOrganizationService CreateOrganizationService(Guid? userId) => _service;
-    }
-
-    public class ExecutionContextFactory
-    {
-        public static RemoteExecutionContext Create(string actionName, string primaryEntityName, Guid primaryEntityId, CrmServiceClient service, bool isPreOperation = false)
-        {
-            bool isGlobal = string.IsNullOrEmpty(primaryEntityName) || primaryEntityName == "none";
-
-            return new RemoteExecutionContext
-            {
-                MessageName = actionName,
-                PrimaryEntityName = isGlobal ? "none" : primaryEntityName,
-                PrimaryEntityId = isGlobal ? Guid.Empty : primaryEntityId,
-                Stage = isPreOperation ? 20 : 40,
-                CorrelationId = Guid.NewGuid(),
-                OperationCreatedOn = DateTime.UtcNow,
-                UserId = service.GetMyCrmUserId(),
-                Depth = 1,
-                Mode = 0, // sync
-            };
-        }
     }
 }
