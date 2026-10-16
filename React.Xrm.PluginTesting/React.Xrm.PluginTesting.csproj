@@ -13,8 +13,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Template.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Template.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.60" />
     <PackageReference Include="Microsoft.CrmSdk.XrmTooling.CoreAssembly" Version="9.1.1.103" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
   </ItemGroup>
 
 </Project>

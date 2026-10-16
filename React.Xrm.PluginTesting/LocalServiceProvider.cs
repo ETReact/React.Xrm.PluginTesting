@@ -6,8 +6,8 @@ using Microsoft.Xrm.Tooling.Connector;
 namespace React.Xrm.PluginTesting
 {
     /// <summary>
-    /// Implements a Constructor that receives the IOrganizationService containing the connection to CRM via Connection String, and a local instance of the ExectionContext.
-    /// Provides the IExecutionContext and local implementations of ITracingService and IOrganizationServiceFactory to execute the Plugin.
+    /// Implements a Constructor that receives the IOrganizationService containing the connection to CRM via Connection String, and a local instance of the ExectionContext.<br/>
+    /// Provides the IExecutionContext and local implementations of ITracingService and IOrganizationServiceFactory to execute the Plugin.<br/>
     /// Initializing a new instance of this class allows to call the "Execute" method of a basic D365 Plugin, using the object as the required parameter "serviceProvider".
     /// </summary>
     public class LocalServiceProvider : IServiceProvider

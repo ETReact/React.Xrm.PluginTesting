@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace React.Xrm.PluginTesting
 {
     /// <summary>
-    /// Implements a Create method to initialize a Plugin context based on the SDK step that is going to be tested, and the Primary Entity that acts as the Target of the invocation.
+    /// Implements a Create method to initialize a Plugin context based on the SDK step that is going to be tested, and the Primary Entity that acts as the Target of the invocation.<br/>
     /// That allows to simulate the Plugin or the Action exposing the specified Input/Output Parameters.
     /// </summary>
     public class ExecutionContextFactory
@@ -18,8 +18,8 @@ namespace React.Xrm.PluginTesting
         /// Initialize a Plugin context based on the SDK step that is going to be tested, and the Primary Entity that acts as the Target of the invocation.
         /// </summary>
         /// <param name="actionName">The name of the SDK step that is going to be tested.</param>
-        /// <param name="primaryEntityName">The Entity Type that acts as the Target of the invocation.</param>
-        /// <param name="primaryEntityId">The Entity Id of the record that acts as the Target of the invocation.</param>
+        /// <param name="primaryEntityName">The Entity Type that acts as the Target of the invocation. "none" is default for Global Actions.</param>
+        /// <param name="primaryEntityId">The Entity Id of the record that acts as the Target of the invocation. Guid.Empty is default for Global Actions.</param>
         /// <param name="service">The CrmServiceClient providing the connection to CRM.</param>
         /// <param name="isPreOperation">Optional: can simulate a Pre-operation or a Post-operation behaviour. Post-operation by default.</param>
         /// <returns></returns>
