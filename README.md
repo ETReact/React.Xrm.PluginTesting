@@ -16,14 +16,14 @@ Instead of deploying a plugin and reading Plugin Trace Logs, you build a local e
 
 ## Requirements
 
-- .NET Framework 4.7.2
+- .NET Framework 4.6.2
 - [`Microsoft.CrmSdk.CoreAssemblies`](https://www.nuget.org/packages/Microsoft.CrmSdk.CoreAssemblies) 9.0.2.60
 - [`Microsoft.CrmSdk.XrmTooling.CoreAssembly`](https://www.nuget.org/packages/Microsoft.CrmSdk.XrmTooling.CoreAssembly) 9.1.1.103
 - A reference to the plugin assembly you want to test
 
 ## Getting started
 
-1. Create a **Console App (.NET Framework 4.7.2)**.
+1. Create a **Console App (.NET Framework 4.6.2)**.
 2. Add a reference to `React.Xrm.PluginTesting` (NuGet package or project reference) and to your plugin assembly.
 3. Add a connection string to `App.config`:
 
