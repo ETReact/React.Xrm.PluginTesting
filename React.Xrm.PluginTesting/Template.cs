@@ -2,13 +2,13 @@
 using Microsoft.Xrm.Tooling.Connector;
 using System;
 using System.Configuration;
-using Example.CRM.Plugins.Quote;
+// using Example.CRM.Plugins.<Entity>;
 
 namespace React.Xrm.PluginTesting
 {
     class Program
     {
-        private static CrmServiceClient service;
+        private static CrmServiceClient _client;
 
         /// <summary>
         /// Example of how to use the PluginTesting package in a D365 Console Application.<br/>
@@ -17,28 +17,28 @@ namespace React.Xrm.PluginTesting
         /// The non-static Plugin Execute method requires a Plugin intance to be created, passing secure/unsecure configs as parameters if needed.
         /// </summary>
         /// <param name="args"></param>
-        private static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            using (service = new CrmServiceClient(ConfigurationManager.ConnectionStrings["CRMConnectionString"].ConnectionString))
+            try
             {
-                try
+                using (_client = new CrmServiceClient(ConfigurationManager.ConnectionStrings["CRMConnectionString"].ConnectionString))
                 {
-                    Guid quoteId = new Guid("...");
+                    Guid id = new Guid("00000000-0000-0000-0000-000000000000");
 
-                    var context = ExecutionContextFactory.Create("Update", "quote", quoteId, service);
-                    context.InputParameters["Target"] = new Entity("quote", quoteId);
+                    var context = ExecutionContextFactory.Create("{sdk_message_name}", "{primary_entity_type}", id, _client);
+                    context.InputParameters["Target"] = new Entity("{primary_entity_type}", id);
+                    // add Input Parameters...
 
-                    var serviceProvider = new LocalServiceProvider(service, context);
+                    var serviceProvider = new LocalServiceProvider(_client, context);
 
-                    var plugin = new PostCreateQuote(null, null);
-                    plugin.Execute(serviceProvider);
-
+                    // create plugin instance...
+                    // plugin.Execute(serviceProvider);
                 }
-                catch (Exception)
-                {
-                    System.Console.ReadKey();
-                    throw;
-                }
+            }
+            catch (FaultException<OrganizationServiceFault> ex)
+            {
+                string message = ex.Message;
+                throw;
             }
         }
     }
